@@ -17,7 +17,7 @@ class WxSpider(object):
         self.token = token
         self.cookies = cookies
         self.account = account
-        self.conn = pymysql.connect(host='192.168.1.11',user='hive',password='hive',database='wx_spider')
+        self.conn = pymysql.connect(host='xxx',user='xxx',password='xxx',database='xxx') # 填写数据库信息
         self.headers = {
             'HOST': 'mp.weixin.qq.com',
             'Cookie': cookies,
@@ -56,15 +56,15 @@ class WxSpider(object):
     def parseMsgToMysql(self,msg,datetime):
         account = self.account  # 公众号名字
         title = msg['title']  # 文章标题
-        author = msg['author']
-        soure_url = msg['source_url']
-        content_url = msg['content_url']
-        _datetime = datetime
+        author = msg['author'] # 作者
+        soure_url = msg['source_url'] # 原始url
+        content_url = msg['content_url'] # 内容url
+        _datetime = datetime # 文章更新时间
         data = [account, title, author, soure_url, content_url, _datetime]
         sql = "insert into article(account, title, author, soure_url, content_url, datetime) values(%s,%s,%s,%s,%s,%s)"
         cursor = self.conn.cursor()
         try:
-            cursor.execute(sql,data)
+            cursor.execute(sql,data) # 数据入库
             self.conn.commit()
         except Exception as e:
             print(e)

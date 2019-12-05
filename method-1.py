@@ -11,8 +11,8 @@ import math
 class weChatSpider(object):
     def __init__(self):
         self.post = {}
-        self.username = "15018890736@163.com"
-        self.password = "hym19920325"
+        self.username = "xxx" # 微信公众号账号
+        self.password = "xxx" # 密码
         self.options = webdriver.ChromeOptions()
         self.options.add_argument('--headless')
         self.options.add_argument('--disable-gpu')
