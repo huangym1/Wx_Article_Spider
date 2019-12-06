@@ -17,7 +17,7 @@ class WxSpider(object):
         self.token = token
         self.cookies = cookies
         self.account = account
-        self.conn = pymysql.connect(host='xxx',user='xxx',password='xxx',database='xxx') # 填写数据库信息
+        self.conn = pymysql.connect(host='192.168.1.11',user='hive',password='hive',database='wx_spider') # 填写数据库信息
         self.headers = {
             'HOST': 'mp.weixin.qq.com',
             'Cookie': cookies,
@@ -25,14 +25,14 @@ class WxSpider(object):
         }
 
     def start(self):
-        print("正在爬取：{}".format(account))
+        print("正在爬取：[{}]...".format(account))
         while True:
+            print("offset:{}".format(self.offset))
             url = "https://mp.weixin.qq.com/mp/profile_ext?action=getmsg&__biz={}&f=json&offset={}&count=10&is_ok=1" \
                   "&scene=124&uin={}&key={}&pass_ticket={}&wxtoken=&appmsg_token={}&x5=0&f=json".format(self.biz,self.offset,self.uin,self.key,self.pass_ticket,self.token)
-            print(url)
             response = requests.get(url,headers=self.headers).json()
-            ret,status = response['ret'],response['errmsg']
-            if ret == 0 or status == 'ok':
+            can_msg_continue = response['can_msg_continue']
+            if can_msg_continue == 1:
                 next_offset = response['next_offset'] # 下一次偏移量
                 general_msg_list = response['general_msg_list']
                 msg_list = json.loads(general_msg_list)['list']
@@ -47,10 +47,11 @@ class WxSpider(object):
                             for multi_msg in multi_list:
                                 self.parseMsgToMysql(multi_msg,_datetime)
             else:
-                print("ret:{},status:{}".format(ret, status))
+                print("can_msg_continue:{}".format(can_msg_continue))
                 break
             time.sleep(10)
             self.offset = next_offset
+        print("已完成[{}]的爬取...".format(self.account))
         self.conn.close()
 
     def parseMsgToMysql(self,msg,datetime):
@@ -71,13 +72,13 @@ class WxSpider(object):
         return
 
 if __name__ == '__main__':
-    account = "简说Python"
-    uri = "/mp/profile_ext?action=getmsg&__biz=MzUyOTAwMzI4NA==&f=json&offset=10&count=10&is_ok=1&scene=124&uin=MTIzOTMzNTI0MA%3D%3D&key=b88e9d7de4cb783ef18eb7cb428f781480c9ef527347502b3ff875753ba1e24a07c6258970c28aefa5db418b08cd214bf19cc4c45ab0d91d90e2a2e5b7db75ee4df37415c637f939a31244f881152e57&pass_ticket=KkkSyncV1LOwdql5EiR1wqcgPDw6EfRiskQxaXv%2BL3wePVuwWwsszq2FY9JEYq2%2F&wxtoken=&appmsg_token=1038_9fITF9WPkemIJaxNXglGJ5DgxzzNM190-1_RAA~~&x5=0&f=json"
+    account = "俊红的数据分析之路"
+    uri = "/mp/profile_ext?action=getmsg&__biz=MzI2MjE3OTA1MA==&f=json&offset=18&count=10&is_ok=1&scene=124&uin=MTIzOTMzNTI0MA%3D%3D&key=aa8e5c393e4dd29dd14e5d5d42da71a0a675a30ae47d1e051da801ef4ca2ddc0d8ea80a26b09faec3e87602efd300166aba2aeeb888389e885b267f7629f5ff3d3c4c40d961672f0fdf1ec46d2d093c8&pass_ticket=EU51ZWV3zD2L8nXAYbmH0unTVcvlO59nMrEcuF3i3T2sD1iEBN09l2ULLDHYEP3N&wxtoken=&appmsg_token=1038_yBvzRmxnbJiZVYHBcubUqKl6Xdz0_qQ5P_zNNw~~&x5=0&f=json"
     biz = re.search(r'.*biz=(.*?)&',uri).group(1)
     uin = re.search(r'.*uin=(.*?)&',uri).group(1)
     key = re.search(r'.*key=(.*?)&',uri).group(1)
     pass_ticket = re.search(r'.*pass_ticket=(.*?)&',uri).group(1)
     appmsg_token = re.search(r'.*appmsg_token=(.*?)&',uri).group(1)
-    cookies = "wap_sid2=CMiC+84EElxWb2I4U291bGs0V2NEN0pHOWZyNlBKOXB1d2p2T3VHcmJwMWdvU1VidVdvY2JzZk0tX3RqNnU4NUUxMmhjZHhMRjlQenlqWmJVWmVwNUNKUlZ2Y3FtdzRFQUFBfjDsiqTvBTgNQJVO"
+    cookies = "wap_sid2=CMiC+84EEnBneDNjWHJhMk5kQU56RWdhT0EwNzY1UThzUFlRN1BObENlREl4WWZzYUI5cXVSTnhZNExSRnpManAzbkRfdWs0SFllNEtWY284Rnl0QVBOaVNjZGJZTDFNZDYzUUI1MVc4R0VlQTRhcU9HSU9CQUFBMOTbqe8FOA1AlU4="
     wx = WxSpider(biz,uin,key,pass_ticket,appmsg_token,cookies,account)
     wx.start()
