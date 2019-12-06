@@ -18,9 +18,17 @@
 - 优点：请求不容易被限制，每次请求能拿到10条记录，效率高
 - 缺点：操作复杂，每次爬取之前都需要通过抓包获取token和cookies等信息
 
+## 爬取步骤
+针对方法2，只需通过Fiddler抓包，把下面截图的信息复制粘贴到代码的uri(注意action=getmsg)和cookies位置即可。  
+![image](https://github.com/huangym1/Wx_Article_Spider/blob/master/images/微信截图_20191206232247.png)
+![image](https://github.com/huangym1/Wx_Article_Spider/blob/master/images/微信截图_20191206232337.png)
+
 ## 爬取结果
 经过测试，爬取了3个多小时，暂未被封。  
-![image](https://github.com/huangym1/Wx_Article_Spider/blob/master/images/微信截图_20191206232708.png)
+开始爬取~~~  
+![image](https://github.com/huangym1/Wx_Article_Spider/blob/master/images/微信截图_20191204131456.png)  
+数据入库~~~  
+![image](https://github.com/huangym1/Wx_Article_Spider/blob/master/images/微信截图_20191206232707.png)
 
 ## TODO
 - 文章增量追加：能根据上次爬取文章的更新时间，实现当次新文章的自动入库。
