@@ -18,10 +18,31 @@ class WxSpider(object):
         self.cookies = cookies
         self.account = account
         self.conn = pymysql.connect(host='192.168.1.11',user='hive',password='hive',database='wx_spider') # 填写数据库信息
+        self.uapools = [
+            'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/14.0.835.163 Safari/535.1',
+            'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0) Gecko/20100101 Firefox/6.0',
+            'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50',
+            'Opera/9.80 (Windows NT 6.1; U; zh-cn) Presto/2.9.168 Version/11.50',
+            'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; InfoPath.3)',
+            'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GTB7.0)',
+            'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
+            'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)',
+            'Mozilla/5.0 (Windows; U; Windows NT 6.1; ) AppleWebKit/534.12 (KHTML, like Gecko) Maxthon/3.0 Safari/534.12',
+            'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; InfoPath.3; .NET4.0C; .NET4.0E)',
+            'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; InfoPath.3; .NET4.0C; .NET4.0E; SE 2.X MetaSr 1.0)',
+            'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.3 (KHTML, like Gecko) Chrome/6.0.472.33 Safari/534.3 SE 2.X MetaSr 1.0',
+            'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; InfoPath.3; .NET4.0C; .NET4.0E)',
+            'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.41 Safari/535.1 QQBrowser/6.9.11079.201',
+            'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; InfoPath.3; .NET4.0C; .NET4.0E) QQBrowser/6.9.11079.201',
+            'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)',
+            'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.80 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0'
+        ]
+        self.ua = random.choice(self.uapools)
         self.headers = {
             'HOST': 'mp.weixin.qq.com',
             'Cookie': cookies,
-            'User-Agent': 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.132 '
+            'User-Agent': self.ua
         }
 
     def start(self):
@@ -72,13 +93,13 @@ class WxSpider(object):
         return
 
 if __name__ == '__main__':
-    account = "俊红的数据分析之路"
-    uri = "/mp/profile_ext?action=getmsg&__biz=MzI2MjE3OTA1MA==&f=json&offset=18&count=10&is_ok=1&scene=124&uin=MTIzOTMzNTI0MA%3D%3D&key=aa8e5c393e4dd29dd14e5d5d42da71a0a675a30ae47d1e051da801ef4ca2ddc0d8ea80a26b09faec3e87602efd300166aba2aeeb888389e885b267f7629f5ff3d3c4c40d961672f0fdf1ec46d2d093c8&pass_ticket=EU51ZWV3zD2L8nXAYbmH0unTVcvlO59nMrEcuF3i3T2sD1iEBN09l2ULLDHYEP3N&wxtoken=&appmsg_token=1038_yBvzRmxnbJiZVYHBcubUqKl6Xdz0_qQ5P_zNNw~~&x5=0&f=json"
+    account = "猴子聊人物"
+    uri = "/mp/profile_ext?action=getmsg&__biz=MzAxMTMwNTMxMQ==&f=json&offset=10&count=10&is_ok=1&scene=124&uin=MTIzOTMzNTI0MA%3D%3D&key=8f73718bc0c37cdc54823eef8d60b62705bac084cfecc93447e09605ff36cbe5e7b4266e5df429bf3991d1cd1aa23a54832c741c68ea96017d3e87872252985c78f2ad7fc24146b38c026117ddbbde19&pass_ticket=oCWh4VxYx37aLpvrobX53Rc2ajP3gytuSg%2Bomn10e8EiIFWVeJf1gqxsvPB4M6h1&wxtoken=&appmsg_token=1038_kvns2tnNgu60HrQ%252BW3D0W3LqGCjGrR7s9Wv14Q~~&x5=0&f=json"
     biz = re.search(r'.*biz=(.*?)&',uri).group(1)
     uin = re.search(r'.*uin=(.*?)&',uri).group(1)
     key = re.search(r'.*key=(.*?)&',uri).group(1)
     pass_ticket = re.search(r'.*pass_ticket=(.*?)&',uri).group(1)
     appmsg_token = re.search(r'.*appmsg_token=(.*?)&',uri).group(1)
-    cookies = "wap_sid2=CMiC+84EEnBneDNjWHJhMk5kQU56RWdhT0EwNzY1UThzUFlRN1BObENlREl4WWZzYUI5cXVSTnhZNExSRnpManAzbkRfdWs0SFllNEtWY284Rnl0QVBOaVNjZGJZTDFNZDYzUUI1MVc4R0VlQTRhcU9HSU9CQUFBMOTbqe8FOA1AlU4="
+    cookies = "wap_sid2=CMiC+84EElx2MC02WGdmb2JaakZBblEtVXlBdTM4YWszd0JIQ3phT2R4WmRXdzN4d2l2ZmZ1aXJYaXQzYVdpS2ZMY1JoQTQ3N1BXRGhuS09DT3hxXzh3aEhGMUFkQTRFQUFBfjDcxq3vBTgNQJVO"
     wx = WxSpider(biz,uin,key,pass_ticket,appmsg_token,cookies,account)
     wx.start()
