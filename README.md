@@ -31,9 +31,9 @@
 - 经过测试，爬取了3个多小时，暂未被封。
 
 ## 文章可视化
-- 选择公众号，点击确定即可查看对应公众号所有文章列表
+- 选择公众号，点击确定即可查看对应公众号所有文章列表  
 ![image](https://github.com/huangym1/Wx_Article_Spider/blob/master/images/微信截图_20191212213314.png)
-- 点击查看对应文章内容
+- 点击查看对应文章内容  
 ![image](https://github.com/huangym1/Wx_Article_Spider/blob/master/images/微信截图_20191212213359.png)
 
 ## TODO
