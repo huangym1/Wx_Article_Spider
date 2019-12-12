@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>微信公众号文章查询</title>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>公众号文章查询</h3>
+              <form method="POST" action="view">
+
+                <select name="account">
+                  <option selected="selected">--请选择一个作者--</option>
+                    {% for account in accounts %}
+                    <option value={{ account[0] }}>{{ account[0] }}</option>
+                    {% endfor %}}
+                </select>
+
+                <input type="submit" value="确认">
+                <input type="reset" value="重置">
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

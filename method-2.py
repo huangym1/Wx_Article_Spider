@@ -70,7 +70,7 @@ class WxSpider(object):
             else:
                 print("can_msg_continue:{}".format(can_msg_continue))
                 break
-            time.sleep(10)
+            time.sleep(20)
             self.offset = next_offset
         print("已完成[{}]的爬取...".format(self.account))
         self.conn.close()
@@ -93,13 +93,13 @@ class WxSpider(object):
         return
 
 if __name__ == '__main__':
-    account = "猴子聊人物"
-    uri = "/mp/profile_ext?action=getmsg&__biz=MzAxMTMwNTMxMQ==&f=json&offset=10&count=10&is_ok=1&scene=124&uin=MTIzOTMzNTI0MA%3D%3D&key=8f73718bc0c37cdc54823eef8d60b62705bac084cfecc93447e09605ff36cbe5e7b4266e5df429bf3991d1cd1aa23a54832c741c68ea96017d3e87872252985c78f2ad7fc24146b38c026117ddbbde19&pass_ticket=oCWh4VxYx37aLpvrobX53Rc2ajP3gytuSg%2Bomn10e8EiIFWVeJf1gqxsvPB4M6h1&wxtoken=&appmsg_token=1038_kvns2tnNgu60HrQ%252BW3D0W3LqGCjGrR7s9Wv14Q~~&x5=0&f=json"
+    account = "Python专栏"
+    uri = "/mp/profile_ext?action=getmsg&__biz=Mzg4ODE1MjU4Ng==&f=json&offset=10&count=10&is_ok=1&scene=124&uin=MTIzOTMzNTI0MA%3D%3D&key=ee95545b6f7acc6e3a73e1790e5ec2ae32640574326acebc4fb9b30712ad2d6abec0c128f1be90f57a72c89cc8b81e26c8fbf6790bb8329726b3970e1fa1f616fe9c312df2b4233858908524d19268e7&pass_ticket=EZfJgKvg3Yh7YLIEWbsiD8qlGJWd9d8iICmwQNSzrxlDcTmAlvtUnITKZtnK5nHr&wxtoken=&appmsg_token=1039_q%252FL8T7Oqoxilxv3dKApFFxo-Xm0ZGGyFPFJSHg~~&x5=0&f=json"
     biz = re.search(r'.*biz=(.*?)&',uri).group(1)
     uin = re.search(r'.*uin=(.*?)&',uri).group(1)
     key = re.search(r'.*key=(.*?)&',uri).group(1)
     pass_ticket = re.search(r'.*pass_ticket=(.*?)&',uri).group(1)
     appmsg_token = re.search(r'.*appmsg_token=(.*?)&',uri).group(1)
-    cookies = "wap_sid2=CMiC+84EElx2MC02WGdmb2JaakZBblEtVXlBdTM4YWszd0JIQ3phT2R4WmRXdzN4d2l2ZmZ1aXJYaXQzYVdpS2ZMY1JoQTQ3N1BXRGhuS09DT3hxXzh3aEhGMUFkQTRFQUFBfjDcxq3vBTgNQJVO"
+    cookies = "wap_sid2=CMiC+84EElw5Y1g4QzZ6LWduVFBTWXp6TUV2cmp0VFFFRTlMdjZ0OF9PcU5xVlkzek9qLVVvREJIX3kzTVV2M3Fqckh1WnloeGpFSjNHWTNDY3ZPZFBMeURPaXVwUThFQUFBfjCIw8LvBTgNQJVO"
     wx = WxSpider(biz,uin,key,pass_ticket,appmsg_token,cookies,account)
     wx.start()

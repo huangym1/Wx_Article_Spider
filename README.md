@@ -28,8 +28,14 @@
 ![image](https://github.com/huangym1/Wx_Article_Spider/blob/master/images/微信截图_20191204131456.png)  
 - 数据入库~~~  
 ![image](https://github.com/huangym1/Wx_Article_Spider/blob/master/images/微信截图_20191206232707.png)  
-- 经过测试，爬取了3个多小时，暂未被封。  
+- 经过测试，爬取了3个多小时，暂未被封。
+
+## 文章可视化
+- 选择公众号，点击确定即可查看对应公众号所有文章列表
+![image](https://github.com/huangym1/Wx_Article_Spider/blob/master/images/微信截图_20191212213314.png)
+- 点击查看对应文章内容
+![image](https://github.com/huangym1/Wx_Article_Spider/blob/master/images/微信截图_20191212213359.png)
 
 ## TODO
 - 文章增量追加：能根据上次爬取文章的更新时间，实现当次新文章的自动入库。
-- 可视化展示：通过flask框架实现个人收集整理的公众号文章阅读可视化。
+- ~~可视化展示：通过flask框架实现个人收集整理的公众号文章阅读可视化。~~
