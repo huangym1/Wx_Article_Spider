@@ -22,12 +22,25 @@ def index():
 def view():
     account = request.form.get("account")
     cur = conn.cursor()
-    sql = 'select account,title,content_url,datetime from article where account=\'{}\''.format(account)
+    sql = 'select id,account,title,content_url,datetime,already from article where account=\'{}\''.format(account)
     cur.execute(sql)
     content = cur.fetchall()
-    labels = ['账号','文章','时间']
+    labels = ['','ID','公众号','文章','时间','是否已读']
 
     return render_template('view.html',labels=labels,content=content)
+
+@app.route('/update',methods=['POST'])
+def update():
+    readList = request.values.getlist("Read")
+    readList = ','.join(readList)
+    cur = conn.cursor()
+    sql = 'update article set already=1 where id in ({})'.format(readList)
+    try:
+        cur.execute(sql)
+        conn.commit()
+    except Exception as e:
+        print(e)
+    return render_template('view.html')
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')
